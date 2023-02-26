@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag("posts")%>
+<p style="color: green"><%= notice %></p>
+<div id="posts" class="container">
+  <div class="row">
+    <% @posts.each do |post| %>
+      <% if post.account.id == current_account.id %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <% post.images.each do |image| %>
+              <%= link_to image_tag(image, class: "card-img-top"), post_path(post) %>
+            <% end %>
+            <div class="card-body">
+              <div class="post-likes"><%= post.likes.count %> Likes</div>
+              <div class="post-comments"><%= post.comments.count %> Comments</div>
+              <%= link_to post_path(post), class: "btn btn-primary" do %>
+                Show this post
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

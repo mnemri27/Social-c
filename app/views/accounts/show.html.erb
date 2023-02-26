@@ -1,0 +1,50 @@
+<%= stylesheet_link_tag("accounts")%>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <% if @account.avatar.attached? %>
+        <%= image_tag @account.avatar, style:"width: 200px; height: 200px;", class:"profile-pic" %>
+      <% end %>
+    </div>
+    <div class="col-8">
+      <h2><%= @account.username %></h2>
+      <% if @account.id == current_account.id%>
+        <%= link_to "edit" , edit_account_registration_path , class:"btn btn-secondary" %>
+      <%else%>
+        <% if current_account.following?(@account) %>
+          <%= button_to "Unfollow", unfollow_path(@account) , class:"btn btn-secondary"%>
+        <% elsif current_account.sent_follow_request_to?(@account) %>
+          <%= button_to "Cancel follow request", cancel_path(@account) %>
+        <% else %>
+          <%= button_to "Follow", follow_path(@account) , class:"btn btn-primary"%>
+        <%end%>
+      <%end%>
+      <div class="profile-status"><%= @account.posts.count %>posts</div>
+      <div class="profile-status"><%= @account.followers.count %>followers</div>
+      <div class="profile-status"><%= @account.following.count %>following</div>
+      <br>
+      <br>
+      <p><%= @account.bio %></p>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-4">
+        <div class="insta-post">
+          <% post.images.each do |image| %>
+            <%= link_to image_tag(image, class: "img-fluid"), post_path(post) %>
+          <% end %>
+          <div class="row">
+            <div class="col">
+              <div class="post-likes" style="position: absolute;">Likes: <%= post.likes.count %></div>
+            </div>
+            <div class="col">
+              <div class="post-comments" style="position: absolute;">Comments: <%= post.comments.count %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>

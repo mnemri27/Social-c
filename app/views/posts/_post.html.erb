@@ -1,0 +1,46 @@
+<%# --------------------------- %>
+<div id="<%= dom_id post %>" class="text-center post-container col-6" style="margin: auto;">
+  <p class="user-info">
+    <%= link_to post.account do %>
+      <%# to open the post page  %>
+      <% if post.account.avatar.attached? %>
+        <%= image_tag post.account.avatar, class: "avatar" %>
+      <% end %>
+      <%= link_to post.account.username, post.account %>
+    <% end %>
+    <br>
+  </p>
+  <% post.images.each do |image| %>
+    <%= link_to post_path(post) do %>
+      <%= image_tag(image , style: "
+      max-width: 500px;
+  height: 50%; object-fit: contain;") %>
+    <%end%>
+  <%end%>
+  <br>
+  <% if account_signed_in? %>
+    <% like = current_account.likes.find_by(post: post) %>
+    <% if like.nil? %>
+      <%= button_to "like", likes_path, params: { like: { post_id: post.id }}, method: :post ,class: "btn btn-secondary mr-2"%>
+    <% else %>
+      <%= button_to "Unlike", like_path(like), method: :delete ,class: "btn btn-danger mr-2"%>
+    <% end %>
+  <% end %>
+  <p>
+    <%= post.likes.count %> Likes ||
+    <%= post.comments.count %> comments
+  </p>
+  <p>
+    <%= post.descriptions %>
+    <br>
+    <strong> <%= post.keywords %></strong>
+  </p>
+  <h5>Comments</h5>
+  <div class="comments">
+    <% post.comments.each do |comment| %>
+      <div class="comment">
+        <b><%= comment.account_username %></b> <%= comment.text %>
+      </div>
+    <% end %>
+  </div>
+</div>

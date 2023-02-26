@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag("post")%>
+<% if account_signed_in? %>
+  <% current_account.follow_requests.each do |request| %>
+    <%= request.followerable.email %> Wants to follow you 
+    <%= button_to "Accept", accept_path(request.followerable) %>
+    <%= button_to "Decline", decline_path(request.followerable) %>
+  <% end %>
+  Followers|
+  <% current_account.followers.each do |follower| %>
+    <p> <b> <%= link_to follower.email, follower %> </b> </p>
+  <% end %>
+  |Following
+  <% current_account.following.each do |following| %>
+    <p> <%= link_to following.email, following %> </p>
+  <% end %>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :keywords_cont, "Filter by keywords" %>
+    <%= f.select :keywords_cont, options_for_select([['All', ''], ['Studying', 'studying'], ['Working', 'working'], ['Art', 'art'], ['Sport', 'sport']]), {}, class: "chosen-select" %>
+    <%= f.submit "Search" %>
+  <% end %>
+<% end %>
+<p style="color: green"><%= notice %></p>
+<h1>Posts</h1>
+<div id="posts">
+  <% @posts.each do |post| %>
+    <div class="post-container">
+      <%= render post %>
+    </div>
+  <% end %>
+  <br>
+</div>

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-12 text-center" style="padding: 20px; background-color: #f2f2f2;">
+    <%= link_to account.username, account %>
+    <%= link_to account.email, account %>
+    <h6> <%= account.followers.count %> Followers </h6>
+    <h6> <%= account.following.count %> Following </h6>
+    <% if account.avatar.attached? %>
+      <%= image_tag account.avatar, style:"width: 50px; height: 50px;" %>
+    <% end %>
+    <% if account_signed_in? %>
+      <% if current_account.following?(account) %>
+        <%= button_to "Unfollow", unfollow_path(account)%>
+      <% elsif current_account.sent_follow_request_to?(account) %>
+        <%= button_to "Cancel follow request", cancel_path(account) %>
+      <% else %>
+        <%= button_to "Follow", follow_path(account)%>
+      <% end %>
+    <% end %>
+  </div>
+</div>

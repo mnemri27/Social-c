@@ -1,0 +1,40 @@
+/* Style for form labels */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  /* Style for form input fields */
+  input[type="text"], select {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+
+  /* Style for form error messages */
+  .error-messages {
+    color: red;
+    margin-bottom: 20px;
+  }
+
+  /* Style for form submit button */
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Style for form submit button on hover */
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }

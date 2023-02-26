@@ -1,0 +1,10 @@
+<div class="message-box <%= message.account == current_account ? 'current-user' : '' %>">
+  <div class="cont-<%=message.account.id%>">
+    <div class="message-box msg-<%= message.account.id %>">
+      <% unless message.room.is_private %>
+        <h6 class="name"> <%= message.account.username %> </h6>
+      <% end %>
+      <p><%= message.body %></p>
+    </div>
+  </div>
+</div>

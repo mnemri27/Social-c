@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag("upload") %>
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div class="error-messages">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.file_field :images ,multiple:true %>
+  <div>
+    <%= form.label :descriptions %>
+    <%= form.text_field :descriptions %>
+  </div>
+  <div>
+    <%= form.label :keywords %>
+    <%= form.select :keywords, options_for_select([["Working", "Working"], ["Studing", "Studing"], ["Art", "Art"], ["Sport", "Sport"]]) %>
+  </div>
+  <%= form.hidden_field :account_id, value: current_account.id %>
+  <br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
